@@ -79,3 +79,35 @@ function randomizeOptions() {
     // Update background color after randomizing
     updateBackgroundColor();
 }
+
+// Function to update the background color of the text inputs
+function updateBackgroundColor() {
+    // Add a change event listener to each radio button
+    radioButtons.forEach((radio, index) => {
+        radio.addEventListener("change", function () {
+            // Loop through all text inputs
+            optionInputs.forEach((input, i) => {
+                // If the radio button at the current index is checked, add the green background class
+                if (i === index && radio.checked) {
+                    input.classList.add("green-background");
+                } else {
+                    // Otherwise, remove the green background class
+                    input.classList.remove("green-background");
+                }
+            });
+        });
+    });
+
+    // Change the background color of the option entries based on the selected radio button
+    radioButtons.forEach((radio, index) => {
+        if (radio.checked) {
+            // If the radio button is checked, add the green background class to the corresponding text input
+            optionInputs[index].classList.add("green-background");
+        } else {
+            // Otherwise, remove the green background class
+            optionInputs[index].classList.remove("green-background");
+        }
+    });
+}
+
+updateBackgroundColor();
