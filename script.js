@@ -57,8 +57,8 @@ function randomizeOptions() {
     const indices = options.map((_, index) => index); // The underscore _ is used here to indicate that this parameter is not needed or used in the function
 
     // Shuffle the indices array with Fisher-Yates shuffle algorithm
-    for (const i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+    for (let i = indices.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
         [indices[i], indices[j]] = [indices[j], indices[i]];
     }
 
