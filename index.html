@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz App</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="form-container">
+            <h2>Insert Quiz Question</h2>
+            <form id="quiz-form">
+                <div class="form-group">
+                    <label for="question">Question:</label>
+                    <input
+                        type="text"
+                        id="question"
+                        name="question"
+                        placeholder="Start typing your question (max 140 characters)"
+                        maxlength="140"
+                        required
+                    />
+                </div>
+                <div class="form-group" id="options-container">
+                    <label for="option1">Option 1:</label>
+                    <div class="option-container">
+                        <input type="radio" name="correct" value="1" required />
+                        <input
+                            type="text"
+                            id="option1"
+                            name="option1"
+                            required
+                        />
+                    </div>
+                    <label for="option2">Option 2:</label>
+                    <div class="option-container">
+                        <input type="radio" name="correct" value="2" required />
+                        <input
+                            type="text"
+                            id="option2"
+                            name="option2"
+                            required
+                        />
+                    </div>
+                    <label for="option3">Option 3:</label>
+                    <div class="option-container">
+                        <input type="radio" name="correct" value="3" required />
+                        <input
+                            type="text"
+                            id="option3"
+                            name="option3"
+                            required
+                        />
+                    </div>
+                    <label for="option4">Option 4:</label>
+                    <div class="option-container">
+                        <input type="radio" name="correct" value="4" required />
+                        <input
+                            type="text"
+                            id="option4"
+                            name="option4"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="explanation">Explanation:</label>
+                    <input
+                        type="text"
+                        id="explanation"
+                        name="explanation"
+                        required
+                    />
+                </div>
+                <button
+                    type="button"
+                    class="randomize-btn"
+                    onclick="randomizeOptions()"
+                >
+                    Randomize Options
+                </button>
+                <button
+                    type="button"
+                    class="submit-btn"
+                    onclick="createQuizQuestion()"
+                >
+                    Submit Question
+                </button>
+            </form>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
