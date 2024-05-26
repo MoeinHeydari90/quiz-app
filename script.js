@@ -4,12 +4,15 @@ let quizQuestions = [];
 // Function to create an object from the quiz question
 function createQuizQuestion() {
     const question = document.getElementById("question").value;
-    const options = [
-        document.getElementById("option1").value,
-        document.getElementById("option2").value,
-        document.getElementById("option3").value,
-        document.getElementById("option4").value,
-    ];
+
+    // Select all text inputs within .option-container dives
+    const optionInputs = document.querySelectorAll(
+        ".option-container input[type='text']"
+    );
+
+    // Convert NodeList to an array and map to their values
+    const options = Array.from(optionInputs).map((input) => input.value);
+
     const correctIndex =
         document.querySelector('input[name="correct"]:checked').value - 1; // The radios value starts from number 1
     const explanation = document.getElementById("explanation").value;
