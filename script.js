@@ -109,3 +109,48 @@ function updateBackgroundColor() {
 }
 
 updateBackgroundColor();
+
+// Function to show all quiz questions
+function showAllQuestions() {
+    const questionsList = document.getElementById("questions-list");
+
+    // Clear existing content
+    questionsList.innerHTML = "";
+
+    // Loop through each question and create a list item for it
+    quizQuestions.forEach((question) => {
+        const questionItem = document.createElement("div");
+        questionItem.classList.add("question-item");
+
+        // Show the question with using the id and question from the question object
+        const questionTitle = document.createElement("h3");
+        questionTitle.textContent = `${question.id} - ${question.question}`;
+        questionItem.appendChild(questionTitle);
+
+        // Show the options with using the option.text from the question object
+        const optionsList = document.createElement("ul");
+        question.options.forEach((option) => {
+            const optionItem = document.createElement("li");
+            optionItem.textContent = option.text;
+            optionsList.appendChild(optionItem);
+        });
+        questionItem.appendChild(optionsList);
+
+        // Button to reveal correct answer with using the explanation from the question object
+        const revealButton = document.createElement("button");
+        revealButton.classList.add("reveal-btn");
+        revealButton.textContent = "Reveal Correct Answer";
+
+        revealButton.addEventListener("click", function handleClick() {
+            const explanation = document.createElement("p");
+            explanation.textContent = question.explanation;
+            questionItem.appendChild(explanation);
+
+            // Remove the event listener after the first click to avoid showing the explanation again
+            revealButton.removeEventListener("click", handleClick);
+        });
+        questionItem.appendChild(revealButton);
+
+        questionsList.appendChild(questionItem);
+    });
+}
