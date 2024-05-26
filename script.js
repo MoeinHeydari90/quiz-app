@@ -2,37 +2,42 @@
 let quizQuestions = [];
 
 // Function to create an object from the quiz question
-function createQuizQuestion() {
-    const question = document.getElementById("question").value;
+document
+    .getElementById("quiz-form")
+    .addEventListener("submit", function (event) {
+        // To prevent refreshing the page after submitting
+        event.preventDefault();
 
-    // Select all text inputs within .option-container dives
-    const optionInputs = document.querySelectorAll(
-        ".option-container input[type='text']"
-    );
+        const question = document.getElementById("question").value;
 
-    // Convert NodeList to an array and map to their values
-    const options = Array.from(optionInputs).map((input) => input.value);
+        // Select all text inputs within .option-container dives
+        const optionInputs = document.querySelectorAll(
+            ".option-container input[type='text']"
+        );
 
-    const correctIndex =
-        document.querySelector('input[name="correct"]:checked').value - 1; // The radios value starts from number 1
-    const explanation = document.getElementById("explanation").value;
+        // Convert NodeList to an array and map to their values
+        const options = Array.from(optionInputs).map((input) => input.value);
 
-    // According to the format of the object of the quiz question
-    const quizQuestion = {
-        id: quizQuestions.length + 1, // To make a new id for each quiz question
-        question: question,
-        options: options.map((option, index) => ({
-            text: option,
-            isCorrect: index === correctIndex, // Mark as true if this option corresponds to the selected radio button
-        })),
-        explanation: explanation,
-    };
+        const correctIndex =
+            document.querySelector('input[name="correct"]:checked').value - 1; // The radios value starts from number 1
+        const explanation = document.getElementById("explanation").value;
 
-    quizQuestions.push(quizQuestion);
+        // According to the format of the object of the quiz question
+        const quizQuestion = {
+            id: quizQuestions.length + 1, // To make a new id for each quiz question
+            question: question,
+            options: options.map((option, index) => ({
+                text: option,
+                isCorrect: index === correctIndex, // Mark as true if this option corresponds to the selected radio button
+            })),
+            explanation: explanation,
+        };
 
-    console.log(quizQuestions);
-    alert("Quiz question submitted successfully!");
-}
+        quizQuestions.push(quizQuestion);
+
+        console.log(quizQuestions);
+        alert("Quiz question submitted successfully!");
+    });
 
 // Collect all text input elements within the option containers
 const optionInputs = Array.from(
