@@ -154,3 +154,35 @@ function showAllQuestions() {
         questionsList.appendChild(questionItem);
     });
 }
+
+function searchQuestions() {
+    // Get the search term and convert it to lowercase for case-insensitive search
+    const searchTerm = document
+        .getElementById("searchInput")
+        .value.toLowerCase();
+
+    // Get the div element where the results will be displayed
+    const resultsDiv = document.getElementById("searchResults");
+
+    // Clear any previous search results
+    resultsDiv.innerHTML = "";
+
+    // Filter the questions that include the search term in their text
+    const filteredQuestions = quizQuestions.filter((item) =>
+        item.question.toLowerCase().includes(searchTerm)
+    );
+
+    // If no questions match the search term, display a message
+    if (filteredQuestions.length === 0) {
+        resultsDiv.innerHTML = "<p>No questions found.</p>";
+        return; // Exit the function
+    }
+
+    // Display the filtered questions with their IDs
+    filteredQuestions.forEach((question) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("question-item");
+        questionDiv.innerHTML = `<p>${question.id} - ${question.question}</p>`;
+        resultsDiv.appendChild(questionDiv);
+    });
+}
