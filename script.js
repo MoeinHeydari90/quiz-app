@@ -35,6 +35,22 @@ document
 
         quizQuestions.push(quizQuestion);
 
+        // Clear submitted data from the inputs
+        document.getElementById("question").value = "";
+        document.getElementById("explanation").value = "";
+
+        // Clear all input fields, uncheck radio buttons, and remove "green-background" class
+        optionInputs.forEach((input) => {
+            input.value = "";
+            input.classList.remove("green-background");
+        });
+
+        // Uncheck all radio buttons
+        const radioButtons = document.querySelectorAll(
+            '.option-container input[type="radio"]'
+        );
+        radioButtons.forEach((radio) => (radio.checked = false));
+
         console.log(quizQuestions);
         alert("Quiz question submitted successfully!");
     });
