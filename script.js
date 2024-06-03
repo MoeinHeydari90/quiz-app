@@ -1,8 +1,16 @@
 // Initializing an array for storing the quiz questions
 let quizQuestions = [];
 
+//  When the form is submitted, this function is called
+document
+    .getElementById("quiz-form")
+    .addEventListener("submit", createQuestionObject);
+
 // Function to create an object from the quiz question
-function createQuizQuestion() {
+function createQuestionObject(event) {
+    // To prevent refreshing the page after submitting
+    event.preventDefault();
+
     const question = document.getElementById("question").value;
 
     // Select all text inputs within .option-container dives
@@ -29,6 +37,22 @@ function createQuizQuestion() {
     };
 
     quizQuestions.push(quizQuestion);
+
+    // Clear submitted data from the inputs
+    document.getElementById("question").value = "";
+    document.getElementById("explanation").value = "";
+
+    // Clear all input fields, uncheck radio buttons, and remove "green-background" class
+    optionInputs.forEach((input) => {
+        input.value = "";
+        input.classList.remove("green-background");
+    });
+
+    // Uncheck all radio buttons
+    const radioButtons = document.querySelectorAll(
+        '.option-container input[type="radio"]'
+    );
+    radioButtons.forEach((radio) => (radio.checked = false));
 
     console.log(quizQuestions);
     alert("Quiz question submitted successfully!");
@@ -109,3 +133,97 @@ function updateBackgroundColor() {
 }
 
 updateBackgroundColor();
+
+// Function to show all quiz questions
+function showAllQuestions() {
+    const questionsList = document.getElementById("questions-list");
+
+    // Clear existing content
+    questionsList.innerHTML = "";
+
+    // Loop through each question and create a list item for it
+    quizQuestions.forEach((question) => {
+        const questionItem = document.createElement("div");
+        questionItem.classList.add("question-item");
+
+        // Show the question with using the id and question from the question object
+        const questionTitle = document.createElement("h3");
+        questionTitle.textContent = `${question.id} - ${question.question}`;
+        questionItem.appendChild(questionTitle);
+
+        // Show the options with using the option.text from the question object
+        const optionsList = document.createElement("ul");
+        question.options.forEach((option) => {
+            const optionItem = document.createElement("li");
+            optionItem.textContent = option.text;
+            optionsList.appendChild(optionItem);
+        });
+        questionItem.appendChild(optionsList);
+
+        // Button to reveal correct answer with using the explanation from the question object
+        const revealButton = document.createElement("button");
+        revealButton.classList.add("reveal-btn");
+        revealButton.textContent = "Reveal Correct Answer";
+
+        revealButton.addEventListener("click", function handleClick() {
+            const explanation = document.createElement("p");
+            explanation.textContent = question.explanation;
+            questionItem.appendChild(explanation);
+
+            // Remove the event listener after the first click to avoid showing the explanation again
+            revealButton.removeEventListener("click", handleClick);
+        });
+        questionItem.appendChild(revealButton);
+
+        questionsList.appendChild(questionItem);
+    });
+}
+
+// Function to search in questions
+function searchQuestions() {
+    // Get the search term and convert it to lowercase for case-insensitive search
+    const searchTerm = document
+        .getElementById("searchInput")
+        .value.toLowerCase();
+
+    // Get the div element where the results will be displayed
+    const resultsDiv = document.getElementById("searchResults");
+
+    // Clear any previous search results
+    resultsDiv.innerHTML = "";
+
+    // Filter the questions that include the search term in their text
+    const filteredQuestions = quizQuestions.filter((item) =>
+        item.question.toLowerCase().includes(searchTerm)
+    );
+
+    // If no questions match the search term, display a message
+    if (filteredQuestions.length === 0) {
+        resultsDiv.innerHTML = "<p>No questions found.</p>";
+        return; // Exit the function
+    }
+
+    // Display the filtered questions with their IDs
+    filteredQuestions.forEach((question) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("question-item");
+        questionDiv.innerHTML = `<p>${question.id} - ${question.question}</p>`;
+        resultsDiv.appendChild(questionDiv);
+    });
+}
+
+// Function to change the theme of the quiz app
+function changeTheme() {
+    const body = document.body;
+    const button = document.getElementById("theme-changer");
+
+    if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        button.textContent = "Dark Mode";
+    } else {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        button.textContent = "Light Mode";
+    }
+}

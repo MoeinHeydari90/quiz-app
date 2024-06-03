@@ -7,87 +7,162 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <div class="form-container">
-            <h2>Insert Quiz Question</h2>
-            <form id="quiz-form">
-                <div class="form-group">
-                    <label for="question">Question:</label>
-                    <input
-                        type="text"
-                        id="question"
-                        name="question"
-                        placeholder="Start typing your question (max 140 characters)"
-                        maxlength="140"
-                        required
-                    />
-                </div>
-                <div class="form-group" id="options-container">
-                    <label for="option1">Option 1:</label>
-                    <div class="option-container">
-                        <input type="radio" name="correct" value="1" required />
-                        <input
-                            type="text"
-                            id="option1"
-                            name="option1"
-                            required
-                        />
-                    </div>
-                    <label for="option2">Option 2:</label>
-                    <div class="option-container">
-                        <input type="radio" name="correct" value="2" required />
-                        <input
-                            type="text"
-                            id="option2"
-                            name="option2"
-                            required
-                        />
-                    </div>
-                    <label for="option3">Option 3:</label>
-                    <div class="option-container">
-                        <input type="radio" name="correct" value="3" required />
-                        <input
-                            type="text"
-                            id="option3"
-                            name="option3"
-                            required
-                        />
-                    </div>
-                    <label for="option4">Option 4:</label>
-                    <div class="option-container">
-                        <input type="radio" name="correct" value="4" required />
-                        <input
-                            type="text"
-                            id="option4"
-                            name="option4"
-                            required
-                        />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="explanation">Explanation:</label>
-                    <input
-                        type="text"
-                        id="explanation"
-                        name="explanation"
-                        required
-                    />
-                </div>
-                <button
-                    type="button"
-                    class="randomize-btn"
-                    onclick="randomizeOptions()"
-                >
-                    Randomize Options
+        <header>
+            <div class="logo">
+                <img src="./images/logo.png" />
+            </div>
+        </header>
+        <nav>
+            <span>
+                <button id="theme-changer" onclick="changeTheme()">
+                    Dark Mode
                 </button>
-                <button
-                    type="button"
-                    class="submit-btn"
-                    onclick="createQuizQuestion()"
-                >
-                    Submit Question
-                </button>
-            </form>
-        </div>
+            </span>
+            <span>
+                <button>Exit</button>
+                <button>Save</button>
+            </span>
+        </nav>
+
+        <main>
+            <section class="quiz-container">
+                <div class="form-container">
+                    <h2>Insert Quiz Question</h2>
+                    <form id="quiz-form">
+                        <div class="form-group">
+                            <label for="question">Question:</label>
+                            <input
+                                type="text"
+                                id="question"
+                                name="question"
+                                placeholder="Start typing your question (max 140 characters)"
+                                maxlength="140"
+                                required
+                            />
+                        </div>
+                        <div class="form-group" id="options-container">
+                            <label for="option1">Option 1:</label>
+                            <div class="option-container">
+                                <input
+                                    type="radio"
+                                    name="correct"
+                                    value="1"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    id="option1"
+                                    name="option1"
+                                    required
+                                />
+                            </div>
+                            <label for="option2">Option 2:</label>
+                            <div class="option-container">
+                                <input
+                                    type="radio"
+                                    name="correct"
+                                    value="2"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    id="option2"
+                                    name="option2"
+                                    required
+                                />
+                            </div>
+                            <label for="option3">Option 3:</label>
+                            <div class="option-container">
+                                <input
+                                    type="radio"
+                                    name="correct"
+                                    value="3"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    id="option3"
+                                    name="option3"
+                                    required
+                                />
+                            </div>
+                            <label for="option4">Option 4:</label>
+                            <div class="option-container">
+                                <input
+                                    type="radio"
+                                    name="correct"
+                                    value="4"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    id="option4"
+                                    name="option4"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="explanation">Explanation:</label>
+                            <input
+                                type="text"
+                                id="explanation"
+                                name="explanation"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            class="randomize-btn"
+                            onclick="randomizeOptions()"
+                        >
+                            Randomize Options
+                        </button>
+                        <button type="submit" class="submit-btn">
+                            Submit Question
+                        </button>
+                    </form>
+                </div>
+            </section>
+            <aside class="quiz-container">
+                <div class="form-container">
+                    <h2>Preview</h2>
+                    <div class="aside">
+                        <div class="questions-container">
+                            <button
+                                type="button"
+                                id="show-questions-btn"
+                                class="show-questions-btn"
+                                onclick="showAllQuestions()"
+                            >
+                                Show All Questions
+                            </button>
+
+                            <div
+                                id="questions-list"
+                                class="questions-container"
+                            ></div>
+                        </div>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Enter search term"
+                        />
+                        <button
+                            onclick="searchQuestions()"
+                            class="show-questions-btn"
+                        >
+                            Search
+                        </button>
+                        <div
+                            id="searchResults"
+                            class="questions-container"
+                        ></div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        <footer>&copy; 2024</footer>
         <script src="script.js"></script>
     </body>
 </html>
