@@ -1,59 +1,62 @@
 // Initializing an array for storing the quiz questions
 let quizQuestions = [];
 
-// Function to create an object from the quiz question
+//  When the form is submitted, this function is called
 document
     .getElementById("quiz-form")
-    .addEventListener("submit", function (event) {
-        // To prevent refreshing the page after submitting
-        event.preventDefault();
+    .addEventListener("submit", createQuestionObject);
 
-        const question = document.getElementById("question").value;
+// Function to create an object from the quiz question
+function createQuestionObject(event) {
+    // To prevent refreshing the page after submitting
+    event.preventDefault();
 
-        // Select all text inputs within .option-container dives
-        const optionInputs = document.querySelectorAll(
-            ".option-container input[type='text']"
-        );
+    const question = document.getElementById("question").value;
 
-        // Convert NodeList to an array and map to their values
-        const options = Array.from(optionInputs).map((input) => input.value);
+    // Select all text inputs within .option-container dives
+    const optionInputs = document.querySelectorAll(
+        ".option-container input[type='text']"
+    );
 
-        const correctIndex =
-            document.querySelector('input[name="correct"]:checked').value - 1; // The radios value starts from number 1
-        const explanation = document.getElementById("explanation").value;
+    // Convert NodeList to an array and map to their values
+    const options = Array.from(optionInputs).map((input) => input.value);
 
-        // According to the format of the object of the quiz question
-        const quizQuestion = {
-            id: quizQuestions.length + 1, // To make a new id for each quiz question
-            question: question,
-            options: options.map((option, index) => ({
-                text: option,
-                isCorrect: index === correctIndex, // Mark as true if this option corresponds to the selected radio button
-            })),
-            explanation: explanation,
-        };
+    const correctIndex =
+        document.querySelector('input[name="correct"]:checked').value - 1; // The radios value starts from number 1
+    const explanation = document.getElementById("explanation").value;
 
-        quizQuestions.push(quizQuestion);
+    // According to the format of the object of the quiz question
+    const quizQuestion = {
+        id: quizQuestions.length + 1, // To make a new id for each quiz question
+        question: question,
+        options: options.map((option, index) => ({
+            text: option,
+            isCorrect: index === correctIndex, // Mark as true if this option corresponds to the selected radio button
+        })),
+        explanation: explanation,
+    };
 
-        // Clear submitted data from the inputs
-        document.getElementById("question").value = "";
-        document.getElementById("explanation").value = "";
+    quizQuestions.push(quizQuestion);
 
-        // Clear all input fields, uncheck radio buttons, and remove "green-background" class
-        optionInputs.forEach((input) => {
-            input.value = "";
-            input.classList.remove("green-background");
-        });
+    // Clear submitted data from the inputs
+    document.getElementById("question").value = "";
+    document.getElementById("explanation").value = "";
 
-        // Uncheck all radio buttons
-        const radioButtons = document.querySelectorAll(
-            '.option-container input[type="radio"]'
-        );
-        radioButtons.forEach((radio) => (radio.checked = false));
-
-        console.log(quizQuestions);
-        alert("Quiz question submitted successfully!");
+    // Clear all input fields, uncheck radio buttons, and remove "green-background" class
+    optionInputs.forEach((input) => {
+        input.value = "";
+        input.classList.remove("green-background");
     });
+
+    // Uncheck all radio buttons
+    const radioButtons = document.querySelectorAll(
+        '.option-container input[type="radio"]'
+    );
+    radioButtons.forEach((radio) => (radio.checked = false));
+
+    console.log(quizQuestions);
+    alert("Quiz question submitted successfully!");
+}
 
 // Collect all text input elements within the option containers
 const optionInputs = Array.from(
