@@ -211,19 +211,3 @@ function searchQuestions() {
         resultsDiv.appendChild(questionDiv);
     });
 }
-
-// Function to change the theme of the quiz app
-function changeTheme() {
-    const body = document.body;
-    const button = document.getElementById("theme-changer");
-
-    if (body.classList.contains("dark-mode")) {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        button.textContent = "Dark Mode";
-    } else {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        button.textContent = "Light Mode";
-    }
-}

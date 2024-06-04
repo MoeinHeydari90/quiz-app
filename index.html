@@ -4,7 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Quiz App</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="./styles/styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
     </head>
     <body>
         <header>
@@ -14,12 +18,12 @@
         </header>
         <nav>
             <span>
-                <button id="theme-changer" onclick="changeTheme()">
-                    Dark Mode
+                <button id="theme-toggle">
+                    <i class="fas fa-sun"></i>
                 </button>
             </span>
             <span>
-                <button>Exit</button>
+                <a href="./htmls/quiz-game.html"><button>Quiz Game</button></a>
                 <button>Save</button>
             </span>
         </nav>
@@ -163,6 +167,7 @@
             </aside>
         </main>
         <footer>&copy; 2024</footer>
-        <script src="script.js"></script>
+        <script src="./scripts/theme.js"></script>
+        <script src="./scripts/script.js"></script>
     </body>
 </html>

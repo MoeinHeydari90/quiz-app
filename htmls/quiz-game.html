@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz App</title>
+        <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/quiz-game.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <img src="../images/logo.png" />
+            </div>
+        </header>
+        <nav>
+            <span>
+                <button id="theme-toggle"><i class="fas fa-sun"></i></button>
+            </span>
+            <span>
+                <a href="../index.html"><button>Home</button></a>
+                <button>Save</button>
+            </span>
+        </nav>
+
+        <main>
+            <div class="container" id="quiz-form">
+                <h1>Quiz Game</h1>
+                <div id="start-screen">
+                    <span>
+                        <label for="firstPlayer"><h3>Player 1 Name:</h3></label>
+                        <input
+                            type="text"
+                            id="firstPlayer"
+                            class="player-name"
+                            placeholder="First Player"
+                    /></span>
+                    <span>
+                        <label for="secondPlayer"
+                            ><h3>Player 2 Name:</h3></label
+                        >
+                        <input
+                            type="text"
+                            id="secondPlayer"
+                            class="player-name"
+                            placeholder="Second Player"
+                        />
+                    </span>
+                    <button id="start-button" class="start-btn">
+                        Start Quiz
+                    </button>
+                </div>
+                <div id="quiz-screen" class="hidden">
+                    <p>Any player who reaches 10 points first is the winner</p>
+                    <div class="players-info">
+                        <div id="firstPlayer-info">
+                            <h2 id="firstPlayer-name"></h2>
+                            <p>
+                                Points:
+                                <input
+                                    type="number"
+                                    id="firstPlayer-points"
+                                    value="0"
+                                    min="0"
+                                    max="10"
+                                />
+                            </p>
+                            <button
+                                class="correct-btn"
+                                onclick="firstPlayerPlus()"
+                            >
+                                Correct
+                            </button>
+                            <button
+                                class="wrong-btn"
+                                onclick="secondPlayerPlus()"
+                            >
+                                Wrong
+                            </button>
+                        </div>
+                        <div id="secondPlayer-info">
+                            <h2 id="secondPlayer-name"></h2>
+                            <p>
+                                Points:
+                                <input
+                                    type="number"
+                                    id="secondPlayer-points"
+                                    value="0"
+                                    min="0"
+                                    max="10"
+                                />
+                            </p>
+                            <button
+                                class="correct-btn"
+                                onclick="secondPlayerPlus()"
+                            >
+                                Correct
+                            </button>
+                            <button
+                                class="wrong-btn"
+                                onclick="firstPlayerPlus()"
+                            >
+                                Wrong
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="show-winner" class="hidden"></div>
+            </div>
+        </main>
+        <footer>&copy; 2024</footer>
+
+        <audio
+            id="win-sound"
+            src="../sounds/win-sound.wav"
+            preload="auto"
+        ></audio>
+
+        <script src="../scripts/theme.js"></script>
+        <script src="../scripts/script.js"></script>
+        <script src="../scripts/quiz-game.js"></script>
+    </body>
+</html>

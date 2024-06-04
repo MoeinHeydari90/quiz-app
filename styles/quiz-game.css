@@ -1,0 +1,52 @@
+.container {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+#quiz-screen {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.players-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+#firstPlayer-info,
+#secondPlayer-info {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    width: 200px;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin: 10px;
+}
+
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-screen span {
+    display: flex;
+    flex-direction: row;
+}
