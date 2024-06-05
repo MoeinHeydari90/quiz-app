@@ -22,30 +22,27 @@ function quizStarter() {
         alert("Please enter names for both players.");
     }
 }
-document
-    .getElementById("firstPlayer-points")
-    .addEventListener("change", function () {
-        const points = parseInt(this.value);
-        checkWinner("firstPlayer", points);
-    });
+const firstPlayerPoints = document.getElementById("firstPlayer-points");
+const secondPlayerPoints = document.getElementById("secondPlayer-points");
 
-document
-    .getElementById("secondPlayer-points")
-    .addEventListener("change", function () {
-        const points = parseInt(this.value);
-        checkWinner("secondPlayer", points);
-    });
+firstPlayerPoints.addEventListener("change", function () {
+    const points = parseInt(this.value);
+    checkWinner("firstPlayer", points);
+});
+
+secondPlayerPoints.addEventListener("change", function () {
+    const points = parseInt(this.value);
+    checkWinner("secondPlayer", points);
+});
 
 function firstPlayerPlus() {
-    const pointsInput = document.getElementById("firstPlayer-points");
-    pointsInput.value = parseInt(pointsInput.value) + 1;
-    checkWinner("firstPlayer-name", pointsInput.value);
+    firstPlayerPoints.value = parseInt(firstPlayerPoints.value) + 1;
+    checkWinner("firstPlayer-name", firstPlayerPoints.value);
 }
 
 function secondPlayerPlus() {
-    const pointsInput = document.getElementById("secondPlayer-points");
-    pointsInput.value = parseInt(pointsInput.value) + 1;
-    checkWinner("secondPlayer-name", pointsInput.value);
+    secondPlayerPoints.value = parseInt(secondPlayerPoints.value) + 1;
+    checkWinner("secondPlayer-name", secondPlayerPoints.value);
 }
 
 function checkWinner(player, points) {
@@ -74,10 +71,10 @@ function checkWinner(player, points) {
 
 // To clear every previous data for the next game
 function resetGame() {
+    firstPlayerPoints.value = 0;
+    secondPlayerPoints.value = 0;
     document.getElementById("firstPlayer").value = "";
     document.getElementById("secondPlayer").value = "";
-    document.getElementById("firstPlayer-points").value = 0;
-    document.getElementById("secondPlayer-points").value = 0;
     document.getElementById("start-screen").classList.remove("hidden");
     document.getElementById("quiz-screen").classList.add("hidden");
     document.getElementById("show-winner").innerHTML = "";
