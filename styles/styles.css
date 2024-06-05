@@ -181,7 +181,8 @@ body.dark-mode ::placeholder {
 .randomize-btn,
 .reveal-btn,
 .show-questions-btn,
-.search-btn {
+.search-btn,
+.download-btn {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -198,7 +199,8 @@ body.dark-mode ::placeholder {
 .randomize-btn:hover,
 .reveal-btn,
 .show-questions-btn:hover,
-.search-btn:hover {
+.search-btn:hover,
+.download-btn:hover {
     background-color: #138496;
 }
 
