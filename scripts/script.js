@@ -58,6 +58,18 @@ function createQuestionObject(event) {
     alert("Quiz question submitted successfully!");
 }
 
+// Function to download the quiz questions as a JSON file
+function downloadQuestions() {
+    const jsonData = JSON.stringify(quizQuestions, null, 2); // Convert to JSON string with indentation
+    const blob = new Blob([jsonData], { type: "application/json" }); // Create a Blob object
+    const url = URL.createObjectURL(blob); // Create a URL for the Blob
+    const a = document.createElement("a"); // Create a temporary anchor element
+    a.href = url; // Set the href of the anchor to the Blob URL
+    a.download = "quiz_questions.json"; // Set the desired file name
+    a.click(); // Click the anchor to trigger the download
+    URL.revokeObjectURL(url); // Release the Blob URL
+}
+
 // Collect all text input elements within the option containers
 const optionInputs = Array.from(
     document.querySelectorAll('.option-container input[type="text"]')
@@ -210,20 +222,4 @@ function searchQuestions() {
         questionDiv.innerHTML = `<p>${question.id} - ${question.question}</p>`;
         resultsDiv.appendChild(questionDiv);
     });
-}
-
-// Function to change the theme of the quiz app
-function changeTheme() {
-    const body = document.body;
-    const button = document.getElementById("theme-changer");
-
-    if (body.classList.contains("dark-mode")) {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        button.textContent = "Dark Mode";
-    } else {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        button.textContent = "Light Mode";
-    }
 }
