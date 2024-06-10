@@ -280,6 +280,12 @@ body.dark-mode #searchInput {
     width: 100%;
     max-width: 450px;
 }
+.correct {
+    background-color: green;
+}
+.incorrect {
+    background-color: red;
+}
 
 footer {
     background-color: #f2f386;

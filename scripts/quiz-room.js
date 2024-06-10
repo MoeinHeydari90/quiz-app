@@ -60,6 +60,55 @@ function createQuizForm(quizData) {
     quizContainer.appendChild(submitButton);
 }
 
+// Function to handle quiz submission
+function handleSubmit(quizData) {
+    const questionContainers = document.querySelectorAll(".question-container");
+    let correctAnswers = 0;
+    let incorrectAnswers = 0;
+    let unansweredQuestions = 0;
+
+    // Iterate over each question container in the quiz
+    questionContainers.forEach((questionContainer, index) => {
+        // Within each question container, find the radio button that is checked (selected by the user)
+        const selectedOption = questionContainer.querySelector("input:checked");
+        const options = questionContainer.querySelectorAll(".option-container");
+
+        // Check if selected input is equal with options.isCorrect or not
+        options.forEach((option, optionIndex) => {
+            // Determine if the selected option is the correct answer
+            const isCorrect = quizData[index].options[optionIndex].isCorrect;
+            if (
+                selectedOption &&
+                selectedOption.value === optionIndex.toString()
+            ) {
+                if (isCorrect) {
+                    option.classList.add("correct");
+                    correctAnswers++;
+                } else {
+                    option.classList.add("incorrect");
+                    incorrectAnswers++;
+                }
+            }
+        });
+
+        // If no option is selected, increment the unansweredQuestions counter
+        if (!selectedOption) {
+            unansweredQuestions++;
+        }
+    });
+
+    // Display the results
+    document.getElementById("submit-quiz").classList.add("hidden");
+    const resultsContainer = document.createElement("div");
+    resultsContainer.innerHTML = `
+        <h2>Quiz Results</h2>
+        <p>Correct Answers: ${correctAnswers}</p>
+        <p>Incorrect Answers: ${incorrectAnswers}</p>
+        <p>Unanswered Questions: ${unansweredQuestions}</p>
+    `;
+    document.getElementById("quiz-room").appendChild(resultsContainer);
+}
+
 function startQuiz() {
     // Fetch quiz data and create the quiz form
     fetchQuizData()
