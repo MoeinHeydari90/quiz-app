@@ -150,6 +150,14 @@ function createQuizForm(quizData, title) {
 
         questionContainer.appendChild(optionsContainer);
         quizContainer.appendChild(questionContainer);
+
+        // Create a div for the explanation
+        const explanationContainer = document.createElement("div");
+        explanationContainer.classList.add("explanation-container", "hidden");
+        explanationContainer.textContent = question.explanation;
+        questionContainer.appendChild(explanationContainer);
+
+        quizContainer.appendChild(questionContainer);
     });
 
     // Create the submit button at the end of the quiz form
@@ -196,6 +204,12 @@ function handleSubmit(quizData) {
         if (!selectedOption) {
             unansweredQuestions++;
         }
+
+        // Show the explanation
+        const explanationContainer = questionContainer.querySelector(
+            ".explanation-container"
+        );
+        explanationContainer.classList.remove("hidden");
     });
 
     // Display the results
@@ -230,7 +244,7 @@ function cinemaQuiz(title) {
     // Fetch quiz data and create the quiz form
     document.querySelector("main").classList.add("hidden");
     fetchQuizDataCinema()
-        .then((quizData) => createQuizForm(quizData.title))
+        .then((quizData) => createQuizForm(quizData, title))
         .catch((error) => console.error(error));
 }
 
