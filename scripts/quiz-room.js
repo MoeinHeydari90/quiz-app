@@ -1,5 +1,5 @@
 // Function to fetch quiz data from a JSON file
-async function fetchQuizData() {
+async function fetchQuizDataGeneral() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/general-information-questions.json"
     );
@@ -8,9 +8,109 @@ async function fetchQuizData() {
     return quizData;
 }
 
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataBooks() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/books-and-poetry-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataCinema() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/cinema-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataEconomy() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/economy-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataGeography() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/geography-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataHistory() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/history-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataPhilosophy() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/philosophy-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataPolitics() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/politics-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataScience() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/science-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+// Function to fetch quiz data from a JSON file
+async function fetchQuizDataSports() {
+    const response = await fetch(
+        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/sports-questions.json"
+    );
+    // Converts the response body to JSON format
+    const quizData = await response.json();
+    return quizData;
+}
+
 // Function to create a quiz form based on the quiz data
-function createQuizForm(quizData) {
+function createQuizForm(quizData, title) {
     const quizContainer = document.getElementById("quiz-room");
+    quizContainer.classList.remove("hidden");
+    quizContainer.innerHTML = "";
+
+    const backButton = document.createElement("button");
+    backButton.type = "button";
+    backButton.textContent = "Exit Quiz";
+    backButton.classList.add("start-btn");
+    backButton.addEventListener("click", () => exitQuiz());
+    quizContainer.appendChild(backButton);
+
+    const subject = document.createElement("h1");
+    subject.textContent = `Subject : ${title}`;
+    quizContainer.appendChild(subject);
 
     // Create a new question for each object of the quiz data
     quizData.forEach((question, index) => {
@@ -37,6 +137,7 @@ function createQuizForm(quizData) {
             const radioInput = document.createElement("input");
             radioInput.type = "radio";
             radioInput.value = optionIndex;
+            radioInput.name = `question-${index}`;
             optionContainer.appendChild(radioInput);
 
             // Create the text of option for each option
@@ -109,9 +210,87 @@ function handleSubmit(quizData) {
     document.getElementById("quiz-room").appendChild(resultsContainer);
 }
 
-function startQuiz() {
+function generalQuiz(title) {
     // Fetch quiz data and create the quiz form
-    fetchQuizData()
-        .then((quizData) => createQuizForm(quizData))
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataGeneral()
+        .then((quizData) => createQuizForm(quizData, title))
         .catch((error) => console.error(error));
+}
+
+function booksQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataBooks()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function cinemaQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataCinema()
+        .then((quizData) => createQuizForm(quizData.title))
+        .catch((error) => console.error(error));
+}
+
+function economyQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataEconomy()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function geographyQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataGeography()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function historyQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataHistory()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function philosophyQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataPhilosophy()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function politicsQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataPolitics()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function scienceQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataScience()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function sportsQuiz(title) {
+    // Fetch quiz data and create the quiz form
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizDataSports()
+        .then((quizData) => createQuizForm(quizData, title))
+        .catch((error) => console.error(error));
+}
+
+function exitQuiz() {
+    document.querySelector("main").classList.remove("hidden");
+    document.getElementById("quiz-room").classList.add("hidden");
 }

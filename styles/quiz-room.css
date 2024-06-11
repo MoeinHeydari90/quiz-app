@@ -1,0 +1,31 @@
+main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+#quiz-subjects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.quiz-subject {
+    width: 150px;
+    height: 100px;
+    border: 1px solid gray;
+    text-align: center;
+    align-items: center;
+    margin: 30px;
+    cursor: pointer;
+}
+
+#quiz-room {
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.hidden {
+    display: none;
+}
