@@ -1,4 +1,4 @@
-// Function to fetch quiz data from a JSON file
+// Functions to fetch quiz data from the JSON files
 async function fetchQuizDataGeneral() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/general-information-questions.json"
@@ -8,89 +8,71 @@ async function fetchQuizDataGeneral() {
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataBooks() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/books-and-poetry-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataCinema() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/cinema-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataEconomy() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/economy-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataGeography() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/geography-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataHistory() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/history-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
 
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataPhilosophy() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/philosophy-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataPolitics() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/politics-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataScience() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/science-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
-// Function to fetch quiz data from a JSON file
 async function fetchQuizDataSports() {
     const response = await fetch(
         "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/sports-questions.json"
     );
-    // Converts the response body to JSON format
     const quizData = await response.json();
     return quizData;
 }
@@ -111,6 +93,36 @@ function createQuizForm(quizData, title) {
     const subject = document.createElement("h1");
     subject.textContent = `Subject : ${title}`;
     quizContainer.appendChild(subject);
+
+    // Sorting buttons
+    const sortContainer = document.createElement("div");
+
+    // The button that will sort the questions alphabetically
+    const sortAlphabeticalButton = document.createElement("button");
+    sortAlphabeticalButton.type = "button";
+    sortAlphabeticalButton.textContent = "Sort Alphabetically";
+    sortAlphabeticalButton.classList.add("sort-btn");
+
+    sortAlphabeticalButton.addEventListener("click", () => {
+        quizData.sort((a, b) => a.question.localeCompare(b.question)); // Sorts the quiz questions alphabetically based on their content.
+        createQuizForm(quizData, title); // Re-render the quiz with sorted data
+    });
+    sortContainer.appendChild(sortAlphabeticalButton);
+
+    // The button that will sort the questions randomly
+    const sortRandomButton = document.createElement("button");
+    sortRandomButton.type = "button";
+    sortRandomButton.textContent = "Sort Randomly";
+    sortRandomButton.classList.add("sort-btn");
+
+    sortRandomButton.addEventListener("click", () => {
+        quizData.sort(() => Math.random() - 0.5); // Each time the comparison function is called, it returns a random value between -0.5 and 0.5. This random value determines the sort order.
+        createQuizForm(quizData, title); // Re-render the quiz with sorted data
+    });
+    sortContainer.appendChild(sortRandomButton);
+
+    // Put the sorting buttons in the top of the quiz container
+    quizContainer.appendChild(sortContainer);
 
     // Create a new question for each object of the quiz data
     quizData.forEach((question, index) => {
@@ -153,7 +165,7 @@ function createQuizForm(quizData, title) {
 
         // Create a div for the explanation
         const explanationContainer = document.createElement("div");
-        explanationContainer.classList.add("explanation-container", "hidden");
+        explanationContainer.classList.add("explanation-container", "hidden"); // The explanation is hidden until the user clicks on it submit button
         explanationContainer.textContent = question.explanation;
         questionContainer.appendChild(explanationContainer);
 
@@ -172,6 +184,8 @@ function createQuizForm(quizData, title) {
 // Function to handle quiz submission
 function handleSubmit(quizData) {
     const questionContainers = document.querySelectorAll(".question-container");
+
+    // Variables to count the number of answers (correct, incorrect and unanswered )
     let correctAnswers = 0;
     let incorrectAnswers = 0;
     let unansweredQuestions = 0;

@@ -62,7 +62,8 @@ nav button,
 .wrong-btn,
 .reset-btn,
 .start-btn,
-.tab-btn {
+.tab-btn,
+.sort-btn {
     min-width: 60px;
     max-width: 300px;
     padding: 10px;
@@ -82,7 +83,8 @@ nav button:hover,
 .wrong-btn:hover,
 .reset-btn:hover,
 .start-btn:hover,
-.tab-btn:hover {
+.tab-btn:hover,
+.sort-btn:hover {
     background-color: #138496;
 }
 
