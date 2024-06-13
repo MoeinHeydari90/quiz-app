@@ -31,48 +31,43 @@
             <div id="quiz-subjects-container">
                 <div
                     class="quiz-subject"
-                    onclick="generalQuiz('General information')"
+                    onclick="createQuiz('general-information')"
                 >
                     <p>General information</p>
                 </div>
-                <div class="quiz-subject" onclick="geographyQuiz('Geography')">
+                <div class="quiz-subject" onclick="createQuiz('geography')">
                     <p>Geography</p>
                 </div>
-                <div class="quiz-subject" onclick="historyQuiz('History')">
+                <div class="quiz-subject" onclick="createQuiz('history')">
                     <p>History</p>
                 </div>
                 <div
                     class="quiz-subject"
-                    onclick="booksQuiz('Books and Poetry')"
+                    onclick="createQuiz('books-and-poetry')"
                 >
                     <p>Books and Poetry</p>
                 </div>
-                <div class="quiz-subject" onclick="sportsQuiz('Sports')">
+                <div class="quiz-subject" onclick="createQuiz('sports')">
                     <p>Sports</p>
                 </div>
-                <div class="quiz-subject" onclick="cinemaQuiz('Cinema')">
+                <div class="quiz-subject" onclick='createQuiz("cinema")'>
                     <p>Cinema</p>
                 </div>
-                <div class="quiz-subject" onclick="scienceQuiz('Science')">
+                <div class="quiz-subject" onclick="createQuiz('science')">
                     <p>Science</p>
                 </div>
-                <div class="quiz-subject" onclick="politicsQuiz('Politics')">
+                <div class="quiz-subject" onclick="createQuiz('politics')">
                     <p>Politics</p>
                 </div>
-                <div class="quiz-subject" onclick="economyQuiz('Economy')">
+                <div class="quiz-subject" onclick="createQuiz('economy')">
                     <p>Economy</p>
                 </div>
-                <div
-                    class="quiz-subject"
-                    onclick="philosophyQuiz('Philosophy')"
-                >
+                <div class="quiz-subject" onclick="createQuiz('philosophy')">
                     <p>Philosophy</p>
                 </div>
             </div>
         </main>
         <div id="quiz-room"></div>
-
-        <footer>&copy; 2024</footer>
 
         <script src="../scripts/quiz-room.js"></script>
         <script src="../scripts/theme.js"></script>

@@ -1,78 +1,9 @@
-// Functions to fetch quiz data from the JSON files
-async function fetchQuizDataGeneral() {
+// Generic function to fetch quiz data based on category
+async function fetchQuizData(category) {
     const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/general-information-questions.json"
+        `https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/${category}-questions.json`
     );
     // Converts the response body to JSON format
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataBooks() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/books-and-poetry-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataCinema() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/cinema-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataEconomy() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/economy-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataGeography() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/geography-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataHistory() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/history-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-
-async function fetchQuizDataPhilosophy() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/philosophy-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-async function fetchQuizDataPolitics() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/politics-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-async function fetchQuizDataScience() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/science-questions.json"
-    );
-    const quizData = await response.json();
-    return quizData;
-}
-async function fetchQuizDataSports() {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/MoeinHeydari90/MoeinHeydari90.github.io/main/data/sports-questions.json"
-    );
     const quizData = await response.json();
     return quizData;
 }
@@ -91,7 +22,7 @@ function createQuizForm(quizData, title) {
     quizContainer.appendChild(backButton);
 
     const subject = document.createElement("h1");
-    subject.textContent = `Subject : ${title}`;
+    subject.textContent = `${title}`;
     quizContainer.appendChild(subject);
 
     // Sorting buttons
@@ -103,8 +34,9 @@ function createQuizForm(quizData, title) {
     sortAlphabeticalButton.textContent = "Sort Alphabetically";
     sortAlphabeticalButton.classList.add("sort-btn");
 
+    // Sorts the quiz questions alphabetically based on their content.
     sortAlphabeticalButton.addEventListener("click", () => {
-        quizData.sort((a, b) => a.question.localeCompare(b.question)); // Sorts the quiz questions alphabetically based on their content.
+        quizData.sort((a, b) => a.question.localeCompare(b.question));
         createQuizForm(quizData, title); // Re-render the quiz with sorted data
     });
     sortContainer.appendChild(sortAlphabeticalButton);
@@ -114,7 +46,6 @@ function createQuizForm(quizData, title) {
     sortRandomButton.type = "button";
     sortRandomButton.textContent = "Sort Randomly";
     sortRandomButton.classList.add("sort-btn");
-
     sortRandomButton.addEventListener("click", () => {
         quizData.sort(() => Math.random() - 0.5); // Each time the comparison function is called, it returns a random value between -0.5 and 0.5. This random value determines the sort order.
         createQuizForm(quizData, title); // Re-render the quiz with sorted data
@@ -145,12 +76,12 @@ function createQuizForm(quizData, title) {
             const optionContainer = document.createElement("div");
             optionContainer.classList.add("option-container");
 
-            // Create a radio button for each option
-            const radioInput = document.createElement("input");
-            radioInput.type = "radio";
-            radioInput.value = optionIndex;
-            radioInput.name = `question-${index}`;
-            optionContainer.appendChild(radioInput);
+            // Create a checkbox button for each option
+            const checkboxInput = document.createElement("input");
+            checkboxInput.type = "checkbox";
+            checkboxInput.value = optionIndex;
+            checkboxInput.name = `question-${index}`;
+            optionContainer.appendChild(checkboxInput);
 
             // Create the text of option for each option
             const optionText = document.createElement("label");
@@ -168,8 +99,6 @@ function createQuizForm(quizData, title) {
         explanationContainer.classList.add("explanation-container", "hidden"); // The explanation is hidden until the user clicks on it submit button
         explanationContainer.textContent = question.explanation;
         questionContainer.appendChild(explanationContainer);
-
-        quizContainer.appendChild(questionContainer);
     });
 
     // Create the submit button at the end of the quiz form
@@ -185,24 +114,46 @@ function createQuizForm(quizData, title) {
 function handleSubmit(quizData) {
     const questionContainers = document.querySelectorAll(".question-container");
 
-    // Variables to count the number of answers (correct, incorrect and unanswered )
+    // Variables to count the number of answers (correct, incorrect and unanswered)
     let correctAnswers = 0;
     let incorrectAnswers = 0;
     let unansweredQuestions = 0;
+    let hasError = false; // Variable to track if there's an error
 
     // Iterate over each question container in the quiz
     questionContainers.forEach((questionContainer, index) => {
-        // Within each question container, find the radio button that is checked (selected by the user)
-        const selectedOption = questionContainer.querySelector("input:checked");
+        // Within each question container, find the checkbox buttons that are checked (selected by the user)
+        const selectedOptions =
+            questionContainer.querySelectorAll("input:checked");
+
+        // Check if more than one option is selected
+        if (selectedOptions.length > 1) {
+            hasError = true;
+            questionContainer.classList.add("error"); // Add error class to highlight the question
+        } else {
+            questionContainer.classList.remove("error");
+        }
+    });
+
+    // If there's an error, alert the user and return early
+    if (hasError) {
+        alert("You can only choose one option for each question.");
+        return; // Prevent the form from submitting
+    }
+
+    // If no errors, proceed to handle the submission
+    questionContainers.forEach((questionContainer, index) => {
+        const selectedOptions =
+            questionContainer.querySelectorAll("input:checked");
         const options = questionContainer.querySelectorAll(".option-container");
 
-        // Check if selected input is equal with options.isCorrect or not
+        // Check if selected input is equal to options.isCorrect or not
         options.forEach((option, optionIndex) => {
             // Determine if the selected option is the correct answer
             const isCorrect = quizData[index].options[optionIndex].isCorrect;
             if (
-                selectedOption &&
-                selectedOption.value === optionIndex.toString()
+                selectedOptions.length === 1 &&
+                selectedOptions[0].value === optionIndex.toString()
             ) {
                 if (isCorrect) {
                     option.classList.add("correct");
@@ -214,8 +165,8 @@ function handleSubmit(quizData) {
             }
         });
 
-        // If no option is selected, increment the unansweredQuestions counter
-        if (!selectedOption) {
+        // If no option is selected, increment the unansweredQuestions
+        if (selectedOptions.length === 0) {
             unansweredQuestions++;
         }
 
@@ -238,87 +189,16 @@ function handleSubmit(quizData) {
     document.getElementById("quiz-room").appendChild(resultsContainer);
 }
 
-function generalQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataGeneral()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function booksQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataBooks()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function cinemaQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataCinema()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function economyQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataEconomy()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function geographyQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataGeography()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function historyQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataHistory()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function philosophyQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataPhilosophy()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function politicsQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataPolitics()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function scienceQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataScience()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
-function sportsQuiz(title) {
-    // Fetch quiz data and create the quiz form
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizDataSports()
-        .then((quizData) => createQuizForm(quizData, title))
-        .catch((error) => console.error(error));
-}
-
+// Function to exit the quiz and return to quiz subjects page
 function exitQuiz() {
     document.querySelector("main").classList.remove("hidden");
     document.getElementById("quiz-room").classList.add("hidden");
+}
+
+// Generic function to create quiz
+function createQuiz(category) {
+    document.querySelector("main").classList.add("hidden");
+    fetchQuizData(category)
+        .then((quizData) => createQuizForm(quizData, category))
+        .catch((error) => console.error(error));
 }
