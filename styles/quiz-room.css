@@ -20,6 +20,18 @@ main {
     justify-content: space-around;
 }
 
+#searchInQuestions {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+body.dark-mode #searchInQuestions {
+    background-color: #666;
+    border: 1px solid #888;
+    color: #fff;
+}
+
 #quiz-room {
     margin: 0 auto;
     max-width: 500px;

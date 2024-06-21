@@ -22,11 +22,20 @@
                 <button id="theme-toggle"><i class="fas fa-sun"></i></button>
             </span>
             <span>
+                <input
+                    type="text"
+                    placeholder="Enter search term"
+                    id="searchInQuestions"
+                />
+                <button type="button" onclick="searchInQuestions()">
+                    Search
+                </button>
                 <a href="./quiz-maker.html"><button>Quiz Maker</button></a>
                 <a href="./quiz-game.html"><button>Quiz Game</button></a>
             </span>
         </nav>
         <main>
+            <div id="searchResults"></div>
             <p>You can measure your knowledge in different subjects here</p>
             <div id="quiz-subjects-container">
                 <div
