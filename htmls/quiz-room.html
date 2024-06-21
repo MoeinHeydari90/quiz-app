@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz Room</title>
+        <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/quiz-room.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../index.html"><img src="../images/logo.png" /></a>
+            </div>
+        </header>
+        <nav>
+            <span>
+                <button id="theme-toggle"><i class="fas fa-sun"></i></button>
+            </span>
+            <span>
+                <a href="./quiz-maker.html"><button>Quiz Maker</button></a>
+                <a href="./quiz-game.html"><button>Quiz Game</button></a>
+            </span>
+        </nav>
+        <main>
+            <p>You can measure your knowledge in different subjects here</p>
+            <div id="quiz-subjects-container">
+                <div
+                    class="quiz-subject"
+                    onclick="createQuiz('general-information')"
+                >
+                    <p>General information</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('geography')">
+                    <p>Geography</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('history')">
+                    <p>History</p>
+                </div>
+                <div
+                    class="quiz-subject"
+                    onclick="createQuiz('books-and-poetry')"
+                >
+                    <p>Books and Poetry</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('sports')">
+                    <p>Sports</p>
+                </div>
+                <div class="quiz-subject" onclick='createQuiz("cinema")'>
+                    <p>Cinema</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('science')">
+                    <p>Science</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('politics')">
+                    <p>Politics</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('economy')">
+                    <p>Economy</p>
+                </div>
+                <div class="quiz-subject" onclick="createQuiz('philosophy')">
+                    <p>Philosophy</p>
+                </div>
+            </div>
+        </main>
+        <div id="quiz-room"></div>
+
+        <script src="../scripts/quiz-room.js"></script>
+        <script src="../scripts/theme.js"></script>
+    </body>
+</html>

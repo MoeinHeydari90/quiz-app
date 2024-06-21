@@ -61,7 +61,9 @@ nav button,
 .correct-btn,
 .wrong-btn,
 .reset-btn,
-.start-btn {
+.start-btn,
+.tab-btn,
+.sort-btn {
     min-width: 60px;
     max-width: 300px;
     padding: 10px;
@@ -80,12 +82,15 @@ nav button:hover,
 .correct-btn:hover,
 .wrong-btn:hover,
 .reset-btn:hover,
-.start-btn:hover {
+.start-btn:hover,
+.tab-btn:hover,
+.sort-btn:hover {
     background-color: #138496;
 }
 
 main {
     display: flex;
+    justify-content: center;
     min-height: 800px;
     background-color: #f0f0f0;
 }
@@ -279,6 +284,12 @@ body.dark-mode #searchInput {
     margin-top: 20px;
     width: 100%;
     max-width: 450px;
+}
+.correct {
+    background-color: green;
+}
+.incorrect {
+    background-color: red;
 }
 
 footer {
