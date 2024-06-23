@@ -1,3 +1,24 @@
+const categories = [
+    "general-information",
+    "geography",
+    "history",
+    "books-and-poetry",
+    "sports",
+    "cinema",
+    "science",
+    "politics",
+    "economy",
+    "philosophy",
+];
+
+// Calling the function for each of the categories
+for (const category of categories) {
+    fetchQuizData(category);
+}
+
+// The variable for store the fetched data
+const quizzes = [];
+
 // Generic function to fetch quiz data based on category
 async function fetchQuizData(category) {
     const response = await fetch(
@@ -5,9 +26,58 @@ async function fetchQuizData(category) {
     );
     // Converts the response body to JSON format
     const quizData = await response.json();
+    quizzes.push(quizData);
     return quizData;
 }
 
+// Function to search in questions
+function searchInQuestions() {
+    // Get the search term and convert it to lowercase for case-insensitive search
+    const searchTerm = document
+        .getElementById("searchInQuestions")
+        .value.toLowerCase();
+
+    // Get the div element where the results will be displayed
+    const resultsDiv = document.getElementById("searchResults");
+    resultsDiv.style.display = "block";
+
+    // Clear any previous search results
+    resultsDiv.innerHTML = "";
+
+    // The variable we need to check the existence of the found questions
+    let foundQuestions = false;
+
+    // Button for hiding results
+    const exitButton = document.createElement("button");
+    exitButton.id = "hideSearchResults";
+    exitButton.innerHTML = "Hide Search Results";
+    exitButton.classList.add("exit-btn");
+    exitButton.onclick = exitResults;
+
+    resultsDiv.appendChild(exitButton);
+
+    for (const quiz of quizzes) {
+        // Filter the questions that include the search term in their text
+        const filteredQuestions = quiz.filter((item) =>
+            item.question.toLowerCase().includes(searchTerm)
+        );
+
+        // Display the filtered questions with their IDs
+        if (filteredQuestions.length > 0) {
+            foundQuestions = true;
+            filteredQuestions.forEach((question) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.classList.add("question-item");
+                questionDiv.innerHTML = `<p>${question["quiz name"]} - ${question.id} - ${question.question}</p>`;
+                resultsDiv.appendChild(questionDiv);
+            });
+        }
+    }
+    // If no questions were found, display a message
+    if (!foundQuestions) {
+        resultsDiv.innerHTML = "<p>No questions found</p>";
+    }
+}
 // Function to create a quiz form based on the quiz data
 function createQuizForm(quizData, title) {
     const quizContainer = document.getElementById("quiz-room");
@@ -17,7 +87,7 @@ function createQuizForm(quizData, title) {
     const backButton = document.createElement("button");
     backButton.type = "button";
     backButton.textContent = "Exit Quiz";
-    backButton.classList.add("start-btn");
+    backButton.classList.add("exit-btn");
     backButton.addEventListener("click", () => exitQuiz());
     quizContainer.appendChild(backButton);
 
@@ -193,6 +263,11 @@ function handleSubmit(quizData) {
 function exitQuiz() {
     document.querySelector("main").classList.remove("hidden");
     document.getElementById("quiz-room").classList.add("hidden");
+}
+
+// Function to exit the results
+function exitResults() {
+    document.getElementById("searchResults").style.display = "none";
 }
 
 // Generic function to create quiz
