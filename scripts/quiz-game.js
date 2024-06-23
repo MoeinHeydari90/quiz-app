@@ -26,13 +26,13 @@ const firstPlayerPoints = document.getElementById("firstPlayer-points");
 const secondPlayerPoints = document.getElementById("secondPlayer-points");
 
 firstPlayerPoints.addEventListener("change", function () {
-    const points = parseInt(this.value);
-    checkWinner("firstPlayer", points);
+    const points = parseInt(this.value); // 'this' refers to the firstPlayerPoints input element
+    checkWinner("firstPlayer-name", points);
 });
 
 secondPlayerPoints.addEventListener("change", function () {
     const points = parseInt(this.value);
-    checkWinner("secondPlayer", points);
+    checkWinner("secondPlayer-name", points);
 });
 
 function firstPlayerPlus() {

@@ -3,7 +3,7 @@ main {
     align-items: center;
     flex-direction: column;
     max-width: 800px;
-    margin: 0px auto;
+    margin: 30px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
