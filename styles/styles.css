@@ -201,7 +201,7 @@ body.dark-mode ::placeholder {
 
 .submit-btn:hover,
 .randomize-btn:hover,
-.reveal-btn,
+.reveal-btn:hover,
 .show-questions-btn:hover,
 .search-btn:hover,
 .download-btn:hover {
