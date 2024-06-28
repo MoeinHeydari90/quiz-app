@@ -1,22 +1,52 @@
+// An array of 10 categories that users can select and evaluate their own knowledge
 const categories = [
     "general-information",
     "geography",
     "history",
     "books-and-poetry",
     "sports",
-    "cinema",
+    "movies",
     "science",
     "politics",
     "economy",
     "philosophy",
 ];
 
-// Calling the function for each of the categories
-for (const category of categories) {
-    fetchQuizData(category);
+document.addEventListener("DOMContentLoaded", initializeQuizRoom);
+// The function to create a menu of categories
+function initializeQuizRoom() {
+    const quizSubjectsContainer = document.getElementById(
+        "quiz-subjects-container"
+    );
+
+    categories.forEach((category) => {
+        const quizSubject = createQuizSubjectElement(category);
+        quizSubjectsContainer.appendChild(quizSubject);
+        // Calling the function for each of the categories
+        fetchQuizData(category);
+    });
 }
 
-// The variable for store the fetched data
+function createQuizSubjectElement(category) {
+    // to convert a kebab-case string to Title Case
+    const titleOfCategory = convertToTitleCase(category);
+    const quizSubject = document.createElement("div");
+    quizSubject.textContent = titleOfCategory;
+    quizSubject.classList.add("quiz-subject");
+    quizSubject.addEventListener("click", () => createQuiz(category));
+    return quizSubject;
+}
+
+// Generic function to create quiz
+function createQuiz(category) {
+    document.querySelector("main").classList.add("hidden");
+
+    fetchQuizData(category)
+        .then((quizData) => createQuizForm(quizData, category))
+        .catch((error) => console.error(error));
+}
+
+// The variable to store the fetched data
 const quizzes = [];
 
 // Generic function to fetch quiz data based on category
@@ -35,7 +65,11 @@ function searchInQuestions() {
     // Get the search term and convert it to lowercase for case-insensitive search
     const searchTerm = document
         .getElementById("searchInQuestions")
-        .value.toLowerCase();
+        .value.toLowerCase()
+        .trim();
+
+    // Exit the function if the search term is empty
+    if (!searchTerm) return;
 
     // Get the div element where the results will be displayed
     const resultsDiv = document.getElementById("searchResults");
@@ -62,7 +96,7 @@ function searchInQuestions() {
             item.question.toLowerCase().includes(searchTerm)
         );
 
-        // Display the filtered questions with their IDs
+        // Display the filtered questions with their IDs and categories
         if (filteredQuestions.length > 0) {
             foundQuestions = true;
             filteredQuestions.forEach((question) => {
@@ -79,7 +113,8 @@ function searchInQuestions() {
     }
 }
 // Function to create a quiz form based on the quiz data
-function createQuizForm(quizData, title) {
+function createQuizForm(quizData, category) {
+    const titleOfCategory = convertToTitleCase(category);
     const quizContainer = document.getElementById("quiz-room");
     quizContainer.classList.remove("hidden");
     quizContainer.innerHTML = "";
@@ -92,7 +127,7 @@ function createQuizForm(quizData, title) {
     quizContainer.appendChild(backButton);
 
     const subject = document.createElement("h1");
-    subject.textContent = `${title}`;
+    subject.textContent = `${titleOfCategory}`;
     quizContainer.appendChild(subject);
 
     // Sorting buttons
@@ -107,7 +142,7 @@ function createQuizForm(quizData, title) {
     // Sorts the quiz questions alphabetically based on their content.
     sortAlphabeticalButton.addEventListener("click", () => {
         quizData.sort((a, b) => a.question.localeCompare(b.question));
-        createQuizForm(quizData, title); // Re-render the quiz with sorted data
+        createQuizForm(quizData, category); // Re-render the quiz with sorted data
     });
     sortContainer.appendChild(sortAlphabeticalButton);
 
@@ -118,7 +153,7 @@ function createQuizForm(quizData, title) {
     sortRandomButton.classList.add("sort-btn");
     sortRandomButton.addEventListener("click", () => {
         quizData.sort(() => Math.random() - 0.5); // Each time the comparison function is called, it returns a random value between -0.5 and 0.5. This random value determines the sort order.
-        createQuizForm(quizData, title); // Re-render the quiz with sorted data
+        createQuizForm(quizData, category); // Re-render the quiz with sorted data
     });
     sortContainer.appendChild(sortRandomButton);
 
@@ -259,6 +294,16 @@ function handleSubmit(quizData) {
     document.getElementById("quiz-room").appendChild(resultsContainer);
 }
 
+// Function to convert a kebab-case string to Title Case
+function convertToTitleCase(str) {
+    return str
+        .split("-") // Split the string by dash
+        .map(
+            (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ) // Capitalize the first letter of each word
+        .join(" "); // Join the words back together with spaces
+}
+
 // Function to exit the quiz and return to quiz subjects page
 function exitQuiz() {
     document.querySelector("main").classList.remove("hidden");
@@ -268,12 +313,4 @@ function exitQuiz() {
 // Function to exit the results
 function exitResults() {
     document.getElementById("searchResults").style.display = "none";
-}
-
-// Generic function to create quiz
-function createQuiz(category) {
-    document.querySelector("main").classList.add("hidden");
-    fetchQuizData(category)
-        .then((quizData) => createQuizForm(quizData, category))
-        .catch((error) => console.error(error));
 }

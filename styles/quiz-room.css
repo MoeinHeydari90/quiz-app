@@ -3,7 +3,7 @@ main {
     align-items: center;
     flex-direction: column;
     max-width: 800px;
-    margin: 0px auto;
+    margin: 30px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -20,13 +20,15 @@ main {
     justify-content: space-around;
 }
 
-#searchInQuestions {
+#searchInQuestions,
+#searchInput {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-body.dark-mode #searchInQuestions {
+body.dark-mode #searchInQuestions,
+body.dark-mode #searchInput {
     background-color: #666;
     border: 1px solid #888;
     color: #fff;

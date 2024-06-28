@@ -196,7 +196,11 @@ function searchQuestions() {
     // Get the search term and convert it to lowercase for case-insensitive search
     const searchTerm = document
         .getElementById("searchInput")
-        .value.toLowerCase();
+        .value.toLowerCase()
+        .trim();
+
+    // Exit the function if the search term is empty
+    if (!searchTerm) return;
 
     // Get the div element where the results will be displayed
     const resultsDiv = document.getElementById("searchResults");
