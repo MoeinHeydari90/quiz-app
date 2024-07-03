@@ -185,12 +185,16 @@ function createQuizForm(quizData, category) {
             const checkboxInput = document.createElement("input");
             checkboxInput.type = "checkbox";
             checkboxInput.value = optionIndex;
-            checkboxInput.name = `question-${index}`;
+            checkboxInput.name = `question-${index + 1}`;
+            checkboxInput.id = `question-${index + 1}-option-${
+                optionIndex + 1
+            }`; // Unique id for each option;
             optionContainer.appendChild(checkboxInput);
 
             // Create the text of option for each option
             const optionText = document.createElement("label");
             optionText.textContent = option.text;
+            optionText.htmlFor = checkboxInput.id; // Correctly set the htmlFor property to match the checkbox id;
             optionContainer.appendChild(optionText);
 
             optionsContainer.appendChild(optionContainer);
